@@ -14,7 +14,7 @@ def load_model():
         tokenizer.add_special_tokens({'pad_token': '[PAD]'})
         model.resize_token_embeddings(len(tokenizer))
 
-    text_gen_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer, device=0)
+    text_gen_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer)
     return text_gen_pipeline
 
 text_gen_pipeline = load_model()
