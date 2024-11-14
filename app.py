@@ -5,7 +5,7 @@ st.title("Chatbot Medis GPT-2")
 
 # Load model and tokenizer from the local path
 def load_model():
-    model_path = "./models"  # Sesuaikan dengan path folder model Anda
+    model_path = "maull04/chatbot_gpt2_healthcaremagic100k"  # Sesuaikan dengan path folder model Anda
     tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
     model = AutoModelForCausalLM.from_pretrained(model_path)
     
