@@ -3,7 +3,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
 st.title("Chatbot Medis")
 
-# Load model and tokenizer from the local path
+# Cache untuk memuat model dan tokenizer
+@st.cache_resource  # Gunakan cache_resource untuk objek besar seperti model
 def load_model():
     model_path = "maull04/biogpt_finetuning"  # Sesuaikan dengan path folder model Anda
     tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
@@ -11,12 +12,12 @@ def load_model():
     
     # Menambahkan pad_token jika tidak ada
     if tokenizer.pad_token is None:
-        tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-        model.resize_token_embeddings(len(tokenizer))
+        tokenizer.pad_token = tokenizer.eos_token
 
-    text_gen_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer, device=0)
+    text_gen_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer)
     return text_gen_pipeline
 
+# Memuat pipeline menggunakan cache
 text_gen_pipeline = load_model()
 
 # Initialize chat history
