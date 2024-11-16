@@ -1,11 +1,11 @@
 import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
-st.title("Chatbot Medis GPT-2")
+st.title("Chatbot Medis")
 
 # Load model and tokenizer from the local path
 def load_model():
-    model_path = "maull04/chatbot_gpt2_healthcaremagic100k"  # Sesuaikan dengan path folder model Anda
+    model_path = "maull04/biogpt_finetuning"  # Sesuaikan dengan path folder model Anda
     tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
     model = AutoModelForCausalLM.from_pretrained(model_path)
     
@@ -47,7 +47,7 @@ if user_input := st.chat_input("Masukkan pertanyaan medis Anda di sini..."):
             )
             
             # Generate response
-            response = text_gen_pipeline(formatted_prompt, max_length=512, do_sample=True, num_return_sequences=1, truncation=False)
+            response = text_gen_pipeline(formatted_prompt, max_length=256, do_sample=True, num_return_sequences=1, truncation=False)
             generated_text = response[0]['generated_text'].split("Response:")[-1].strip()
             
             # Display assistant's response in chat message container
