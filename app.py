@@ -12,8 +12,7 @@ def load_model():
     
     # Menambahkan pad_token jika tidak ada
     if tokenizer.pad_token is None:
-        tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-        model.resize_token_embeddings(len(tokenizer))
+        tokenizer.pad_token = tokenizer.eos_token
 
     text_gen_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer)
     return text_gen_pipeline
